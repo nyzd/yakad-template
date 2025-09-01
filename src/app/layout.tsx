@@ -8,7 +8,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <html lang="en">
             <body>
                 <StorageProvider>
-                    <ThemeWrapper>{children}A TEXT FROM TEMPLATE REPO</ThemeWrapper>
+                    <ThemeWrapper>
+                        {children}
+                        NEW TEXT FROM TEMPLATE REPO
+                    </ThemeWrapper>
                 </StorageProvider>
             </body>
         </html>
