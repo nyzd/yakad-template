@@ -1,12 +1,11 @@
 import { StorageProvider } from "@/contexts/storageContext";
 import ThemeWrapper from "./ThemeWrapper";
-import metadataJson from "./metadata.json";
 
 export const runtime = "edge";
 
 export const metadata = {
-    title: metadataJson.title,
-    description: metadataJson.description,
+    title: "Natiq Account",
+    description: "Natiq Account",
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -14,11 +13,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <html lang="en">
             <body>
                 <StorageProvider>
-                    <ThemeWrapper>
-                        {children}
-                        NEW TEXT FROM TEMPLATE REPO
-                        {"ANOTHER NEW CHANGE FROM TEMPLATE REPO"}
-                    </ThemeWrapper>
+                    <ThemeWrapper>{children}</ThemeWrapper>
                 </StorageProvider>
             </body>
         </html>
