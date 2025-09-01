@@ -14,11 +14,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <html lang="en">
             <body>
                 <StorageProvider>
-                    <ThemeWrapper>
-                        {children}
-                        NEW TEXT FROM TEMPLATE REPO
-                        {"ANOTHER NEW CHANGE FROM TEMPLATE REPO"}
-                    </ThemeWrapper>
+                    <ThemeWrapper>{children}</ThemeWrapper>
                 </StorageProvider>
             </body>
         </html>
