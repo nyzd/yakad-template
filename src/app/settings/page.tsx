@@ -1,5 +1,5 @@
 import { Container, H1 } from "@yakad/ui";
-import { ResetButton } from "@/components";
+import { ResetButton } from "@/components/buttons/ResetButton";
 import AppSettingsSection from "./AppSettingsSection";
 
 export default function Page() {

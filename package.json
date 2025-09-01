@@ -1,8 +1,9 @@
 {
-    "name": "natiq",
-    "version": "1.0.0",
+    "name": "yakad-template",
+    "version": "0.1.0",
     "private": false,
     "scripts": {
+        "sync": "yakad-sync -r https://github.com/NatiqQuran/yakad-template.git -v",
         "dev": "next dev --turbopack",
         "build": "next build --turbopack",
         "start": "next start",
@@ -12,13 +13,13 @@
         "react": "19.1.0",
         "react-dom": "19.1.0",
         "next": "15.5.2",
-        "@ntq/sdk": "1.1.76",
-        "@yakad/lib": "1.0.15",
-        "@yakad/symbols": "1.0.24",
-        "@yakad/ui": "1.3.80",
-        "@yakad/x": "1.1.16"
+        "@yakad/lib": "^1",
+        "@yakad/symbols": "^1",
+        "@yakad/ui": "^1",
+        "@yakad/x": "^1"
     },
     "devDependencies": {
+        "@yakad/sync": "^1",
         "@types/node": "^20",
         "@types/react": "^19",
         "@types/react-dom": "^19",
