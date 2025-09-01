@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import { H1, Main, Screen } from "@yakad/ui";
 

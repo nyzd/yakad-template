@@ -1,0 +1,5 @@
+.syncignore
+package.json
+package-lock.json
+index.ts
+example*.*

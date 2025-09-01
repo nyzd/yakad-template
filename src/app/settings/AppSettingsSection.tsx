@@ -8,6 +8,7 @@ const acceptedLangCodes: LangCodeType[] = ["en", "ar", "fa", "tr"];
 
 export default function AppSettingsSection() {
     const { storage, setStorage } = useStorage();
+
     const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const { name, value } = e.target;
         setStorage((prev) => ({
