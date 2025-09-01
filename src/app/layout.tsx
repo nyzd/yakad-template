@@ -1,11 +1,12 @@
 import { StorageProvider } from "@/contexts/storageContext";
 import ThemeWrapper from "./ThemeWrapper";
+import metadataJson from "./metadata.json";
 
 export const runtime = "edge";
 
 export const metadata = {
-    title: process.env.APP_NAME,
-    description: process.env.APP_DESCRIPTION,
+    title: metadataJson.title,
+    description: metadataJson.description,
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {
