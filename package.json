@@ -20,8 +20,8 @@
     },
     "devDependencies": {
         "@yakad/sync": "^1",
-        "@types/node": "^20",
         "@types/react": "^19",
+        "@types/node": "^20",
         "@types/react-dom": "^19",
         "@eslint/eslintrc": "^3",
         "eslint": "^9",
