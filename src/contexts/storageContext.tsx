@@ -116,8 +116,6 @@ export const StorageProvider = ({ children }: { children: ReactNode }) => {
                     options: {
                         ...prev.options,
                         ...parsed.options,
-                        playing: false, // force playing to false on load
-                        playBoxShow: storage.selected.ayahUUID !== undefined,
                     },
                 }));
             } catch (error) {
