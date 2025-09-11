@@ -60,7 +60,7 @@ interface Storage {
 const defaultStorage: Storage = {
     settings: {
         darkStyle: "system",
-        themeColor: "green",
+        themeColor: (process.env.THEME_COLOR as ThemeColor) || "blue",
         zoom: 100,
         language: "en",
     },
