@@ -2,7 +2,7 @@
 
 import { forwardRef } from "react";
 import classNames from "classnames";
-import { Button, ButtonProps, ThemeColor } from "@yakad/ui";
+import { Button, ButtonProps } from "@yakad/ui";
 import { IconCode, Symbol } from "@yakad/symbols";
 import { useStorage } from "@/contexts/storageContext";
 

@@ -10,10 +10,7 @@ const acceptedLangCodes: LangCodeType[] = ["en", "ar", "fa", "tr"];
 export const LanguageSelect = forwardRef<
     HTMLSelectElement,
     Omit<SelectProps, "name" | "value">
->(function LanguageSelect(
-    { placeholder, onChange, className, ...restProps },
-    ref
-) {
+>(function LanguageSelect({ placeholder, onChange, ...restProps }, ref) {
     const { storage, setStorage } = useStorage();
 
     const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
