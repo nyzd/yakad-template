@@ -6,7 +6,7 @@ import { useStorage } from "@/contexts/storageContext";
 export default function ThemeWrapper({
     children,
     ...restProps
-}: Omit<ThemeProps, "mode" | "color" | "zoom">) {
+}: Omit<ThemeProps, "darkstyle" | "color" | "zoom">) {
     const { storage } = useStorage();
 
     return (

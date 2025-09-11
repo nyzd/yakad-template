@@ -2,42 +2,44 @@
 
 import { forwardRef } from "react";
 import classNames from "classnames";
-import { Button, ButtonProps, DarkStyle } from "@yakad/ui";
-import { IconCode, Symbol } from "@yakad/symbols";
+import { Button, ButtonProps, ThemeColor } from "@yakad/ui";
+import { Symbol } from "@yakad/symbols";
 import { useStorage } from "@/contexts/storageContext";
 
-const order: DarkStyle[] = ["system", "light", "dark"];
+const order: ThemeColor[] = ["blue", "green", "red", "yellow", "purple"];
 
-const optionsMap: Record<
-    DarkStyle,
-    { name: string; title: string; icon: IconCode }
-> = {
-    system: {
-        name: "System",
-        title: "Switch to Light Mode",
-        icon: "brightness_6",
+const optionsMap: Record<ThemeColor, { name: string; title: string }> = {
+    blue: {
+        name: "Blue",
+        title: "Switch to green",
     },
-    light: {
-        name: "Light",
-        title: "Switch to Dark Mode",
-        icon: "light_mode",
+    green: {
+        name: "Green",
+        title: "Switch to red",
     },
-    dark: {
-        name: "Dark",
-        title: "Switch to System Mode",
-        icon: "dark_mode",
+    red: {
+        name: "Red",
+        title: "Switch to yellow",
+    },
+    yellow: {
+        name: "Yellow",
+        title: "Switch to purple",
+    },
+    purple: {
+        name: "Purple",
+        title: "Switch to blue",
     },
 };
 
-export const DarkStyleButton = forwardRef<HTMLButtonElement, ButtonProps>(
-    function DarkStyleButton(
+export const ColorButton = forwardRef<HTMLButtonElement, ButtonProps>(
+    function ColorButton(
         { title, icon, onClick, children, className, ...restProps },
         ref
     ) {
         const { storage, setStorage } = useStorage();
 
-        const currentOption: DarkStyle =
-            storage?.settings?.darkStyle || "system";
+        const currentOption: ThemeColor =
+            storage?.settings?.themeColor || "green";
 
         const toggleOption = () => {
             const currentIndex = order.indexOf(currentOption);
@@ -48,7 +50,7 @@ export const DarkStyleButton = forwardRef<HTMLButtonElement, ButtonProps>(
                 ...prev,
                 settings: {
                     ...prev.settings,
-                    darkStyle: nextOption,
+                    themeColor: nextOption,
                 },
             }));
         };
@@ -60,7 +62,7 @@ export const DarkStyleButton = forwardRef<HTMLButtonElement, ButtonProps>(
                 ref={ref}
                 className={joinedClassNames}
                 title={title || optionsMap[currentOption].title}
-                icon={icon || <Symbol icon={optionsMap[currentOption].icon} />}
+                icon={icon || <Symbol icon="circle" />}
                 onClick={(e) => {
                     toggleOption();
                     onClick?.(e);
