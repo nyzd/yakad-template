@@ -10,22 +10,24 @@ import {
     type SetStateAction,
 } from "react";
 
-interface CreateContextOptions<T> {
+interface CreateContextOptions<T extends object> {
     name: string;
     defaultValue: T;
     storageKey: string;
 }
 
-export function createLocalStorageContext<T extends object>({
-    name,
-    defaultValue,
-    storageKey,
-}: CreateContextOptions<T>) {
+export function createLocalStorageContext<T extends object>(
+    options: CreateContextOptions<T>
+) {
+    const { name, defaultValue, storageKey } = options;
     type ContextType = {
         [K in Lowercase<typeof name>]: T;
     } & {
         [K in `set${Capitalize<typeof name>}`]: Dispatch<SetStateAction<T>>;
     };
+
+    // This helps TypeScript infer the exact string literal type from name
+    const contextName = name as Lowercase<typeof name>;
 
     const LocalContext = createContext<ContextType | undefined>(undefined);
     LocalContext.displayName = name;

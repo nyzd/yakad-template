@@ -12,7 +12,7 @@ const defaultSettings: Settings = {
     autoScroll: true,
 };
 
-const [SettingsProvider, useSettings] = createLocalStorageContext({
+const [SettingsProvider, useSettings] = createLocalStorageContext<Settings>({
     name: "Settings",
     defaultValue: defaultSettings,
     storageKey: "Settings",
