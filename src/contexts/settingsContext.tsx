@@ -1,74 +1,26 @@
 "use client";
 
-import { ThemeColor, DarkStyle } from "@yakad/ui";
-import {
-    createContext,
-    useContext,
-    useEffect,
-    useState,
-    ReactNode,
-    Dispatch,
-    SetStateAction,
-} from "react";
+import { createLocalStorageContext } from "@/utils/createLocalStorageContext";
 
 interface Settings {
-    darkStyle: DarkStyle;
-    themeColor: ThemeColor;
-    zoom?: number;
-    language: string;
+    arabicFontSize: "small" | "medium" | "large";
+    autoScroll: boolean;
 }
 
 const defaultSettings: Settings = {
-    darkStyle: "system",
-    themeColor: (process.env.THEME_COLOR as ThemeColor) || "blue",
-    zoom: 100,
-    language: "en",
+    arabicFontSize: "medium",
+    autoScroll: true,
 };
 
-interface SettingsContextType {
-    settings: Settings;
-    setSettings: Dispatch<SetStateAction<Settings>>;
-}
+const [SettingsProvider, useSettingsContext] = createLocalStorageContext({
+    name: "Settings",
+    defaultValue: defaultSettings,
+    storageKey: "Settings",
+});
 
-const SettingsContext = createContext<SettingsContextType | undefined>(
-    undefined
-);
+export { SettingsProvider };
 
-const LOCAL_STORAGE_KEY = "settings";
-
-export const SettingsProvider = ({ children }: { children: ReactNode }) => {
-    const [settings, setSettings] = useState<Settings>(defaultSettings);
-
-    useEffect(() => {
-        const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
-        if (stored) {
-            try {
-                const parsed = JSON.parse(stored) as Settings;
-                setSettings(parsed);
-            } catch (error) {
-                console.error(
-                    "Failed to parse settings from localStorage",
-                    error
-                );
-            }
-        }
-    }, []);
-
-    useEffect(() => {
-        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(settings));
-    }, [settings]);
-
-    return (
-        <SettingsContext.Provider value={{ settings, setSettings }}>
-            {children}
-        </SettingsContext.Provider>
-    );
-};
-
-export const useSettings = (): SettingsContextType => {
-    const context = useContext(SettingsContext);
-    if (!context) {
-        throw new Error("useSettings must be used within a SettingsProvider");
-    }
-    return context;
+export const useSettings = () => {
+    const { value, setValue } = useSettingsContext();
+    return { Settings: value, setSettings: setValue };
 };

@@ -4,7 +4,7 @@ import { DarkStyleButton } from "@/components/buttons/DarkStyleButton";
 import { ColorButton } from "@/components/buttons/ColorButton";
 import { ZoomButton } from "@/components/buttons/ZoomButton";
 
-export default function AppSettingsSection() {
+export default function PreferencesSection() {
     return (
         <>
             <GridContainer columns={3}>

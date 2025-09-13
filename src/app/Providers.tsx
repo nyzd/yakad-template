@@ -1,16 +1,13 @@
 "use client";
 
 import { ReactNode } from "react";
+import { PreferencesProvider } from "@/contexts/preferencesContext";
 import { SettingsProvider } from "@/contexts/settingsContext";
-import { OptionsProvider } from "@/contexts/optionsContext";
-import { SelectedProvider } from "@/contexts/selectedContext";
 
 export default function Providers({ children }: { children: ReactNode }) {
     return (
-        <SettingsProvider>
-            <OptionsProvider>
-                <SelectedProvider>{children}</SelectedProvider>
-            </OptionsProvider>
-        </SettingsProvider>
+        <PreferencesProvider>
+            <SettingsProvider>{children}</SettingsProvider>
+        </PreferencesProvider>
     );
 }

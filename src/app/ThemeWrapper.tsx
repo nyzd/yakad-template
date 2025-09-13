@@ -1,19 +1,19 @@
 "use client";
 
 import { Theme, ThemeProps } from "@yakad/ui";
-import { useSettings } from "@/contexts/settingsContext";
+import { usePreferences } from "@/contexts/preferencesContext";
 
 export default function ThemeWrapper({
     children,
     ...restProps
 }: Omit<ThemeProps, "darkstyle" | "color" | "zoom">) {
-    const { settings } = useSettings();
+    const { Preferences } = usePreferences();
 
     return (
         <Theme
-            darkstyle={settings.darkStyle}
-            color={settings.themeColor}
-            zoom={settings.zoom}
+            darkstyle={Preferences.darkStyle}
+            color={Preferences.themeColor}
+            zoom={Preferences.zoom}
             {...restProps}
         >
             {children}

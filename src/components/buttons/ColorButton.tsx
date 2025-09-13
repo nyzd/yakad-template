@@ -4,7 +4,7 @@ import { forwardRef } from "react";
 import classNames from "classnames";
 import { Button, ButtonProps, ThemeColor } from "@yakad/ui";
 import { Symbol } from "@yakad/symbols";
-import { useSettings } from "@/contexts/settingsContext";
+import { usePreferences } from "@/contexts/preferencesContext";
 
 const order: ThemeColor[] = ["blue", "green", "red", "yellow", "purple"];
 
@@ -36,16 +36,16 @@ export const ColorButton = forwardRef<HTMLButtonElement, ButtonProps>(
         { title, icon, onClick, children, className, ...restProps },
         ref
     ) {
-        const { settings, setSettings } = useSettings();
+        const { Preferences, setPreferences } = usePreferences();
 
-        const currentOption: ThemeColor = settings.themeColor || "green";
+        const currentOption: ThemeColor = Preferences.themeColor || "green";
 
         const toggleOption = () => {
             const currentIndex = order.indexOf(currentOption);
             const nextIndex = (currentIndex + 1) % order.length;
             const nextOption = order[nextIndex];
 
-            setSettings((prev) => ({
+            setPreferences((prev) => ({
                 ...prev,
                 themeColor: nextOption,
             }));
