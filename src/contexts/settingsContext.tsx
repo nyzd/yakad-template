@@ -3,12 +3,12 @@
 import { createLocalStorageContext } from "@yakad/lib";
 
 interface Settings {
-    arabicFontSize: "small" | "medium" | "large";
+    exampleFontSize: "small" | "medium" | "large";
     autoScroll: boolean;
 }
 
 const defaultSettings: Settings = {
-    arabicFontSize: "medium",
+    exampleFontSize: "medium",
     autoScroll: true,
 };
 
