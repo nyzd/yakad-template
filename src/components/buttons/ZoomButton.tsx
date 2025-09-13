@@ -44,9 +44,9 @@ export const ZoomButton = forwardRef<HTMLButtonElement, ButtonProps>(
         { title, icon, onClick, children, className, ...restProps },
         ref
     ) {
-        const { Preferences, setPreferences } = usePreferences();
+        const { preferences, setPreferences } = usePreferences();
 
-        const currentOption: number = Preferences.zoom || 100;
+        const currentOption: number = preferences.zoom || 100;
 
         const toggleOption = () => {
             const currentIndex = order.indexOf(currentOption);

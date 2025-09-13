@@ -17,15 +17,10 @@ const defaultPreferences: Preferences = {
     language: "en",
 };
 
-const [PreferencesProvider, usePreferencesContext] = createLocalStorageContext({
+const [PreferencesProvider, usePreferences] = createLocalStorageContext({
     name: "Preferences",
     defaultValue: defaultPreferences,
     storageKey: "preferences",
 });
 
-export { PreferencesProvider };
-
-export const usePreferences = () => {
-    const { value, setValue } = usePreferencesContext();
-    return { Preferences: value, setPreferences: setValue };
-};
+export { PreferencesProvider, usePreferences };

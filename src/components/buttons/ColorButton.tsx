@@ -36,9 +36,9 @@ export const ColorButton = forwardRef<HTMLButtonElement, ButtonProps>(
         { title, icon, onClick, children, className, ...restProps },
         ref
     ) {
-        const { Preferences, setPreferences } = usePreferences();
+        const { preferences, setPreferences } = usePreferences();
 
-        const currentOption: ThemeColor = Preferences.themeColor || "green";
+        const currentOption: ThemeColor = preferences.themeColor || "green";
 
         const toggleOption = () => {
             const currentIndex = order.indexOf(currentOption);

@@ -34,9 +34,9 @@ export const DarkStyleButton = forwardRef<HTMLButtonElement, ButtonProps>(
         { title, icon, onClick, children, className, ...restProps },
         ref
     ) {
-        const { Preferences, setPreferences } = usePreferences();
+        const { preferences, setPreferences } = usePreferences();
 
-        const currentOption: DarkStyle = Preferences.darkStyle || "system";
+        const currentOption: DarkStyle = preferences.darkStyle || "system";
 
         const toggleOption = () => {
             const currentIndex = order.indexOf(currentOption);

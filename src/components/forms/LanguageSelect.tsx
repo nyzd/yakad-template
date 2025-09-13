@@ -11,7 +11,7 @@ export const LanguageSelect = forwardRef<
     HTMLSelectElement,
     Omit<SelectProps, "name" | "value">
 >(function LanguageSelect({ placeholder, onChange, ...restProps }, ref) {
-    const { Preferences, setPreferences } = usePreferences();
+    const { preferences, setPreferences } = usePreferences();
 
     const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const { name, value } = e.target;
@@ -26,7 +26,7 @@ export const LanguageSelect = forwardRef<
             ref={ref}
             name="language"
             placeholder={placeholder || "Language"}
-            value={Preferences.language}
+            value={preferences.language}
             onChange={(e) => {
                 handleChange(e);
                 onChange?.(e);

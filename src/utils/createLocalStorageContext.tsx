@@ -16,28 +16,34 @@ interface CreateContextOptions<T> {
     storageKey: string;
 }
 
-export interface ContextType<T> {
-    value: T;
-    setValue: Dispatch<SetStateAction<T>>;
-}
-
 export function createLocalStorageContext<T extends object>({
     name,
     defaultValue,
     storageKey,
 }: CreateContextOptions<T>) {
-    const LocalContext = createContext<ContextType<T> | undefined>(undefined);
+    type ContextType = {
+        [K in Lowercase<typeof name>]: T;
+    } & {
+        [K in `set${Capitalize<typeof name>}`]: Dispatch<SetStateAction<T>>;
+    };
+
+    const LocalContext = createContext<ContextType | undefined>(undefined);
     LocalContext.displayName = name;
 
     const Provider = ({ children }: { children: ReactNode }) => {
-        const [value, setValue] = useState<T>(defaultValue);
+        const [state, setState] = useState<T>(defaultValue);
+
+        const contextValue = {
+            [name.toLowerCase()]: state,
+            [`set${name}`]: setState,
+        } as ContextType;
 
         useEffect(() => {
             const stored = localStorage.getItem(storageKey);
             if (stored) {
                 try {
                     const parsed = JSON.parse(stored) as T;
-                    setValue((prev) => ({
+                    setState((prev) => ({
                         ...prev,
                         ...parsed,
                     }));
@@ -51,17 +57,17 @@ export function createLocalStorageContext<T extends object>({
         }, []);
 
         useEffect(() => {
-            localStorage.setItem(storageKey, JSON.stringify(value));
-        }, [value]);
+            localStorage.setItem(storageKey, JSON.stringify(state));
+        }, [state]);
 
         return (
-            <LocalContext.Provider value={{ value, setValue }}>
+            <LocalContext.Provider value={contextValue}>
                 {children}
             </LocalContext.Provider>
         );
     };
 
-    const useValue = (): ContextType<T> => {
+    const useValue = (): ContextType => {
         const context = useContext(LocalContext);
         if (context === undefined) {
             throw new Error(`use${name} must be used within a ${name}Provider`);
