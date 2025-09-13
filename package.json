@@ -10,7 +10,7 @@
         "lint": "next lint"
     },
     "dependencies": {
-        "@yakad/lib": "latest",
+        "@yakad/lib": "1.0.21",
         "@yakad/symbols": "latest",
         "@yakad/ui": "latest",
         "@yakad/x": "latest",

@@ -1,15 +1,15 @@
 import { Container, H1 } from "@yakad/ui";
 import { ResetButton } from "@/components/buttons/ResetButton";
-import AppSettingsSection from "./AppSettingsSection";
+import PreferencesSection from "./PreferencesSection";
 
 export default function Page() {
     return (
         <>
             <Container size="md">
-                <H1 variant="heading3">Settings</H1>
+                <H1 variant="heading3">Preferences</H1>
             </Container>
             <Container size="sm" align="center">
-                <AppSettingsSection />
+                <PreferencesSection />
                 <ResetButton />
             </Container>
         </>
