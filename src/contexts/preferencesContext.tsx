@@ -18,10 +18,6 @@ const defaultPreferences: Preferences = {
 };
 
 const [PreferencesProvider, usePreferences] =
-    createLocalStorageContext<Preferences>({
-        name: "Preferences",
-        defaultValue: defaultPreferences,
-        storageKey: "preferences",
-    });
+    createLocalStorageContext<Preferences>("preferences", defaultPreferences);
 
 export { PreferencesProvider, usePreferences };

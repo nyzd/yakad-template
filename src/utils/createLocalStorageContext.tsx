@@ -10,34 +10,40 @@ import {
     type SetStateAction,
 } from "react";
 
-interface CreateContextOptions<T extends object> {
-    name: string;
-    defaultValue: T;
-    storageKey: string;
-}
-
 export function createLocalStorageContext<T extends object>(
-    options: CreateContextOptions<T>
+    storageKey: string,
+    defaultValue: T
 ) {
-    const { name, defaultValue, storageKey } = options;
+    const contextName =
+        storageKey.charAt(0).toUpperCase() +
+        storageKey
+            .slice(1)
+            .replace(/([A-Z])/g, " $1")
+            .trim()
+            .replace(/ /g, "");
+
     type ContextType = {
-        [K in Lowercase<typeof name>]: T;
+        [K in Lowercase<typeof contextName>]: T;
     } & {
-        [K in `set${Capitalize<typeof name>}`]: Dispatch<SetStateAction<T>>;
+        [K in `set${Capitalize<typeof contextName>}`]: Dispatch<
+            SetStateAction<T>
+        >;
     };
 
-    // This helps TypeScript infer the exact string literal type from name
-    const contextName = name as Lowercase<typeof name>;
+    // This helps TypeScript infer the exact string literal type from contextName
+    const contextNameLower = contextName.toLowerCase() as Lowercase<
+        typeof contextName
+    >;
 
     const LocalContext = createContext<ContextType | undefined>(undefined);
-    LocalContext.displayName = name;
+    LocalContext.displayName = contextName;
 
     const Provider = ({ children }: { children: ReactNode }) => {
         const [state, setState] = useState<T>(defaultValue);
 
         const contextValue = {
-            [name.toLowerCase()]: state,
-            [`set${name}`]: setState,
+            [contextNameLower]: state,
+            [`set${contextName}`]: setState,
         } as ContextType;
 
         useEffect(() => {
@@ -51,7 +57,7 @@ export function createLocalStorageContext<T extends object>(
                     }));
                 } catch (error) {
                     console.error(
-                        `Failed to parse ${name} from localStorage`,
+                        `Failed to parse ${contextName} from localStorage`,
                         error
                     );
                 }
@@ -72,7 +78,9 @@ export function createLocalStorageContext<T extends object>(
     const useValue = (): ContextType => {
         const context = useContext(LocalContext);
         if (context === undefined) {
-            throw new Error(`use${name} must be used within a ${name}Provider`);
+            throw new Error(
+                `use${contextName} must be used within a ${contextName}Provider`
+            );
         }
         return context;
     };
