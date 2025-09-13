@@ -7,7 +7,7 @@ export default function ThemeWrapper({
     children,
     ...restProps
 }: Omit<ThemeProps, "darkstyle" | "color" | "zoom">) {
-    const { preferences } = usePreferences();
+    const [preferences] = usePreferences();
 
     return (
         <Theme

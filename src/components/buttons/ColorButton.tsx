@@ -36,7 +36,7 @@ export const ColorButton = forwardRef<HTMLButtonElement, ButtonProps>(
         { title, icon, onClick, children, className, ...restProps },
         ref
     ) {
-        const { preferences, setPreferences } = usePreferences();
+        const [preferences, setPreferences] = usePreferences();
 
         const currentOption: ThemeColor = preferences.themeColor || "green";
 

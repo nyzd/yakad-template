@@ -34,7 +34,7 @@ export const DarkStyleButton = forwardRef<HTMLButtonElement, ButtonProps>(
         { title, icon, onClick, children, className, ...restProps },
         ref
     ) {
-        const { preferences, setPreferences } = usePreferences();
+        const [preferences, setPreferences] = usePreferences();
 
         const currentOption: DarkStyle = preferences.darkStyle || "system";
 
