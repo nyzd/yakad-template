@@ -1,7 +1,7 @@
 "use client";
 
 import { ThemeColor, DarkStyle } from "@yakad/ui";
-import { createLocalStorageContext } from "@/utils/createLocalStorageContext";
+import { createLocalStorageContext } from "@yakad/lib";
 
 interface Preferences {
     darkStyle: DarkStyle;

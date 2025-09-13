@@ -1,6 +1,6 @@
 "use client";
 
-import { createLocalStorageContext } from "@/utils/createLocalStorageContext";
+import { createLocalStorageContext } from "@yakad/lib";
 
 interface Settings {
     arabicFontSize: "small" | "medium" | "large";
@@ -13,7 +13,7 @@ const defaultSettings: Settings = {
 };
 
 const [SettingsProvider, useSettings] = createLocalStorageContext<Settings>(
-    "Settings",
+    "settings",
     defaultSettings
 );
 
