@@ -1,109 +1,100 @@
 "use client";
 
-import { Button, Card, CardProps } from "@yakad/ui";
-import React, { useRef, useState, useEffect, forwardRef } from "react";
-import { createPortal } from "react-dom";
-import styles from "./DropDawn.module.css";
-import classNames from "classnames";
+import { Card, CardProps } from "@yakad/ui";
+import React, { useRef, useState, useEffect } from "react";
 
-export interface DropDawnProps extends CardProps {}
+export interface DropDawnProps extends CardProps {
+    dropdawnclassName?: string;
+    dropdawnstyles?: React.CSSProperties;
+    dropdawnchildren?: React.ReactNode;
+}
 
-export const DropDawn = forwardRef<HTMLDivElement, CardProps>(
-    ({ className, children, ...restProps }, ref) => {
-        const buttonRef = useRef<HTMLButtonElement | null>(null);
-        const popupRef = useRef<HTMLDivElement | null>(null);
-        const [showPopup, setShowPopup] = useState(false);
-        const [popupStyles, setPopupStyles] = useState<React.CSSProperties>({});
+export const DropDawn = ({
+    dropdawnclassName,
+    dropdawnstyles,
+    dropdawnchildren,
+    children,
+    ...restProps
+}: DropDawnProps) => {
+    const toggleDivRef = useRef<HTMLDivElement | null>(null);
+    const dropDawnRef = useRef<HTMLDivElement | null>(null);
+    const [showDropDawn, setShowDropDawn] = useState(false);
+    const [top, setTop] = useState<number>(0);
+    const [left, setLeft] = useState<number>(0);
 
-        const togglePopup = () => setShowPopup((prev) => !prev);
+    const togglePopup = () => setShowDropDawn((prev) => !prev);
 
-        // Close on outside click
-        useEffect(() => {
-            const handleClickOutside = (event: MouseEvent) => {
-                if (
-                    buttonRef.current &&
-                    !buttonRef.current.contains(event.target as Node)
-                ) {
-                    setShowPopup(false);
-                }
-            };
-            if (showPopup) {
-                document.addEventListener("mousedown", handleClickOutside);
+    // Close on outside click
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (
+                toggleDivRef.current &&
+                !toggleDivRef.current.contains(event.target as Node)
+            ) {
+                setShowDropDawn(false);
             }
-            return () =>
-                document.removeEventListener("mousedown", handleClickOutside);
-        }, [showPopup]);
+        };
+        if (showDropDawn) {
+            document.addEventListener("mousedown", handleClickOutside);
+        }
+        return () =>
+            document.removeEventListener("mousedown", handleClickOutside);
+    }, [showDropDawn]);
 
-        // Position popup
-        useEffect(() => {
-            if (buttonRef.current && popupRef.current) {
-                const buttonRect = buttonRef.current.getBoundingClientRect();
-                const popupRect = popupRef.current.getBoundingClientRect();
-                const padding = 10;
+    // Position popup
+    useEffect(() => {
+        if (toggleDivRef.current && dropDawnRef.current) {
+            const buttonRect = toggleDivRef.current.getBoundingClientRect();
+            const dropDawnRect = dropDawnRef.current.getBoundingClientRect();
+            const padding = 10;
 
-                let top = buttonRect.bottom + padding;
-                let left =
-                    buttonRect.left +
-                    buttonRect.width / 2 -
-                    popupRect.width / 2;
+            let top = buttonRect.bottom + padding;
+            let left =
+                buttonRect.left + buttonRect.width / 2 - dropDawnRect.width / 2;
 
-                // Prevent overflow bottom
-                if (top + popupRect.height > window.innerHeight) {
-                    top = buttonRect.top - popupRect.height - padding;
-                }
-
-                // Prevent overflow right
-                if (left + popupRect.width > window.innerWidth - padding) {
-                    left = window.innerWidth - popupRect.width - padding;
-                }
-
-                // Prevent overflow left
-                if (left < padding) {
-                    left = padding;
-                }
-
-                setPopupStyles({
-                    top,
-                    left,
-                });
+            // Prevent overflow bottom
+            if (top + dropDawnRect.height > window.innerHeight) {
+                top = buttonRect.top - dropDawnRect.height - padding;
             }
-        }, []);
 
-        const joinedClassNames = classNames(
-            styles.dropDawn,
-            { [styles.collapsed]: !showPopup },
-            className
-        );
+            // Prevent overflow right
+            if (left + dropDawnRect.width > window.innerWidth - padding) {
+                left = window.innerWidth - dropDawnRect.width - padding;
+            }
 
-        return (
-            <>
-                <Button ref={buttonRef} variant="filled" onClick={togglePopup}>
-                    Select Language
-                </Button>
-                {typeof window !== "undefined" &&
-                    createPortal(
-                        <Card
-                            ref={popupRef}
-                            className={joinedClassNames}
-                            style={{
-                                position: "fixed",
-                                top: 0,
-                                left: 0,
-                                ...popupStyles,
-                                width: "auto",
-                                minWidth: "5rem",
-                                maxWidth: "calc(100% - 2rem)",
-                                maxHeight: "50vh",
-                                overflowY: "auto",
-                                zIndex: 2,
-                                visibility: showPopup ? "visible" : "hidden",
-                            }}
-                        >
-                            {children}
-                        </Card>,
-                        document.body
-                    )}
-            </>
-        );
-    }
-);
+            // Prevent overflow left
+            if (left < padding) {
+                left = padding;
+            }
+
+            setTop(top);
+            setLeft(left);
+        }
+    }, [showDropDawn, children]);
+
+    return (
+        <>
+            <div {...restProps} ref={toggleDivRef} onClick={togglePopup}>
+                {children}
+            </div>
+            <Card
+                ref={dropDawnRef}
+                className={dropdawnclassName}
+                style={{
+                    position: "fixed",
+                    top: top,
+                    left: left,
+                    width: "auto",
+                    maxWidth: "calc(100% - 4rem)",
+                    maxHeight: "min(50vh, 50rem)",
+                    overflowY: "auto",
+                    zIndex: 2,
+                    visibility: showDropDawn ? "visible" : "hidden",
+                    ...dropdawnstyles,
+                }}
+            >
+                {dropdawnchildren}
+            </Card>
+        </>
+    );
+};
