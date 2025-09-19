@@ -7,7 +7,9 @@ import { InteractiveSurface } from "./InteractiveSurface";
 export interface DropDawnProps extends CardProps {
     trigger?: "click" | "rightClick";
     dropdawnchildren?: React.ReactNode;
-    children?: React.ReactElement;
+    children?: React.ReactElement<{
+        onClick?: (e: React.MouseEvent<HTMLElement>) => void;
+    }>;
 }
 
 export const DropDawn = ({
@@ -17,7 +19,7 @@ export const DropDawn = ({
     children,
     ...restProps
 }: DropDawnProps) => {
-    const toggleDivRef = useRef<HTMLElement | null>(null);
+    const toggleElementRef = useRef<HTMLElement | null>(null);
     const dropDawnRef = useRef<HTMLDivElement | null>(null);
     const [showDropDawn, setShowDropDawn] = useState(false);
     const [top, setTop] = useState<number>(0);
@@ -27,8 +29,8 @@ export const DropDawn = ({
 
     // Position popup
     useEffect(() => {
-        if (toggleDivRef.current && dropDawnRef.current) {
-            const buttonRect = toggleDivRef.current.getBoundingClientRect();
+        if (toggleElementRef.current && dropDawnRef.current) {
+            const buttonRect = toggleElementRef.current.getBoundingClientRect();
             const dropDawnRect = dropDawnRef.current.getBoundingClientRect();
             const padding = 10;
 
@@ -59,13 +61,18 @@ export const DropDawn = ({
     return (
         <>
             <InteractiveSurface
-                ref={toggleDivRef}
+                ref={toggleElementRef}
                 onRightClick={() =>
                     trigger === "rightClick" && setShowDropDawn(true)
                 }
             >
-                {/* onClick={() => trigger === "click" && toggleShowDropDawn()} */}
-                {children}
+                {children &&
+                    React.cloneElement(children, {
+                        onClick: (e: React.MouseEvent<HTMLElement>) => {
+                            children.props.onClick?.(e);
+                            trigger === "click" && toggleShowDropDawn();
+                        },
+                    })}
             </InteractiveSurface>
             <InteractiveSurface onOutsideClick={() => setShowDropDawn(false)}>
                 <Card
