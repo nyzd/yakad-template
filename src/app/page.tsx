@@ -1,5 +1,7 @@
+"use client";
+
 import Link from "next/link";
-import { Button, H1, Main, Row, Screen } from "@yakad/ui";
+import { Button, H1, Main, Screen } from "@yakad/ui";
 import { DropDawn } from "@/components/DropDawn";
 
 export default function Page() {
@@ -9,9 +11,10 @@ export default function Page() {
                 <H1>Hi From Page</H1>
                 <Link href="/settings">Go to Settings</Link>
                 <DropDawn
+                    trigger="click"
                     dropdawnchildren={
                         <>
-                            <Button>Test</Button>
+                            <Button>TTTT</Button>
                             <Button>Test</Button>
                             <Button>Test</Button>
                             <Button>Test</Button>
@@ -20,49 +23,12 @@ export default function Page() {
                         </>
                     }
                 >
-                    <Button variant="filled">Select</Button>
-                </DropDawn>
-                <DropDawn
-                    dropdawnchildren={
-                        <>
-                            <Button>Test</Button>
-                            <Button>Test</Button>
-                            <Button>Test</Button>
-                            <Button>Test</Button>
-                            <Button>Test</Button>
-                            <Button>Test</Button>
-                        </>
-                    }
-                >
-                    <Button variant="filled">Select</Button>
-                </DropDawn>
-                <DropDawn
-                    dropdawnchildren={
-                        <>
-                            <Button>Test</Button>
-                            <Button>Test</Button>
-                            <Button>Test</Button>
-                            <Button>Test</Button>
-                            <Button>Test</Button>
-                            <Button>Test</Button>
-                        </>
-                    }
-                >
-                    <Button variant="filled">Select</Button>
-                </DropDawn>
-                <DropDawn
-                    dropdawnchildren={
-                        <>
-                            <Button>Test</Button>
-                            <Button>Test</Button>
-                            <Button>Test</Button>
-                            <Button>Test</Button>
-                            <Button>Test</Button>
-                            <Button>Test</Button>
-                        </>
-                    }
-                >
-                    <Button variant="filled">Select</Button>
+                    <Button
+                        variant="filled"
+                        onClick={() => console.log("onClick Works")}
+                    >
+                        Select
+                    </Button>
                 </DropDawn>
             </Main>
         </Screen>

@@ -2,44 +2,28 @@
 
 import { Card, CardProps } from "@yakad/ui";
 import React, { useRef, useState, useEffect } from "react";
+import { InteractiveSurface } from "./InteractiveSurface";
 
 export interface DropDawnProps extends CardProps {
-    dropdawnclassName?: string;
-    dropdawnstyles?: React.CSSProperties;
+    trigger?: "click" | "rightClick";
     dropdawnchildren?: React.ReactNode;
+    children?: React.ReactElement;
 }
 
 export const DropDawn = ({
-    dropdawnclassName,
-    dropdawnstyles,
+    trigger = "click",
+    style,
     dropdawnchildren,
     children,
     ...restProps
 }: DropDawnProps) => {
-    const toggleDivRef = useRef<HTMLDivElement | null>(null);
+    const toggleDivRef = useRef<HTMLElement | null>(null);
     const dropDawnRef = useRef<HTMLDivElement | null>(null);
     const [showDropDawn, setShowDropDawn] = useState(false);
     const [top, setTop] = useState<number>(0);
     const [left, setLeft] = useState<number>(0);
 
-    const togglePopup = () => setShowDropDawn((prev) => !prev);
-
-    // Close on outside click
-    useEffect(() => {
-        const handleClickOutside = (event: MouseEvent) => {
-            if (
-                toggleDivRef.current &&
-                !toggleDivRef.current.contains(event.target as Node)
-            ) {
-                setShowDropDawn(false);
-            }
-        };
-        if (showDropDawn) {
-            document.addEventListener("mousedown", handleClickOutside);
-        }
-        return () =>
-            document.removeEventListener("mousedown", handleClickOutside);
-    }, [showDropDawn]);
+    const toggleShowDropDawn = () => setShowDropDawn((prev) => !prev);
 
     // Position popup
     useEffect(() => {
@@ -74,27 +58,35 @@ export const DropDawn = ({
 
     return (
         <>
-            <div {...restProps} ref={toggleDivRef} onClick={togglePopup}>
-                {children}
-            </div>
-            <Card
-                ref={dropDawnRef}
-                className={dropdawnclassName}
-                style={{
-                    position: "fixed",
-                    top: top,
-                    left: left,
-                    width: "auto",
-                    maxWidth: "calc(100% - 4rem)",
-                    maxHeight: "min(50vh, 50rem)",
-                    overflowY: "auto",
-                    zIndex: 2,
-                    visibility: showDropDawn ? "visible" : "hidden",
-                    ...dropdawnstyles,
-                }}
+            <InteractiveSurface
+                ref={toggleDivRef}
+                onRightClick={() =>
+                    trigger === "rightClick" && setShowDropDawn(true)
+                }
             >
-                {dropdawnchildren}
-            </Card>
+                {/* onClick={() => trigger === "click" && toggleShowDropDawn()} */}
+                {children}
+            </InteractiveSurface>
+            <InteractiveSurface onOutsideClick={() => setShowDropDawn(false)}>
+                <Card
+                    ref={dropDawnRef}
+                    {...restProps}
+                    style={{
+                        position: "fixed",
+                        top: top,
+                        left: left,
+                        width: "auto",
+                        maxWidth: "calc(100% - 4rem)",
+                        maxHeight: "min(50vh, 50rem)",
+                        overflowY: "auto",
+                        zIndex: 2,
+                        visibility: showDropDawn ? "visible" : "hidden",
+                        ...style,
+                    }}
+                >
+                    {dropdawnchildren}
+                </Card>
+            </InteractiveSurface>
         </>
     );
 };
