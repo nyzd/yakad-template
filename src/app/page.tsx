@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import { Button, H1, Main, Screen } from "@yakad/ui";
 import { DropDawn } from "@/components/DropDawn";
@@ -12,23 +10,14 @@ export default function Page() {
                 <Link href="/settings">Go to Settings</Link>
                 <DropDawn
                     trigger="click"
-                    dropdawnchildren={
-                        <>
-                            <Button>TTTT</Button>
-                            <Button>Test</Button>
-                            <Button>Test</Button>
-                            <Button>Test</Button>
-                            <Button>Test</Button>
-                            <Button>Test</Button>
-                        </>
-                    }
+                    triggerchildren={<Button variant="filled">Select</Button>}
                 >
-                    <Button
-                        variant="filled"
-                        onClick={() => console.log("onClick Works")}
-                    >
-                        Select
-                    </Button>
+                    <Button>TTTT</Button>
+                    <Button>Test</Button>
+                    <Button>Test</Button>
+                    <Button>Test</Button>
+                    <Button>Test</Button>
+                    <Button>Test</Button>
                 </DropDawn>
             </Main>
         </Screen>

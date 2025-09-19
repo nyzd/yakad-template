@@ -6,16 +6,15 @@ import { InteractiveSurface } from "./InteractiveSurface";
 
 export interface DropDawnProps extends CardProps {
     trigger?: "click" | "rightClick";
-    dropdawnchildren?: React.ReactNode;
-    children?: React.ReactElement<{
+    triggerchildren?: React.ReactElement<{
         onClick?: (e: React.MouseEvent<HTMLElement>) => void;
     }>;
 }
 
 export const DropDawn = ({
     trigger = "click",
+    triggerchildren,
     style,
-    dropdawnchildren,
     children,
     ...restProps
 }: DropDawnProps) => {
@@ -66,10 +65,10 @@ export const DropDawn = ({
                     trigger === "rightClick" && setShowDropDawn(true)
                 }
             >
-                {children &&
-                    React.cloneElement(children, {
+                {triggerchildren &&
+                    React.cloneElement(triggerchildren, {
                         onClick: (e: React.MouseEvent<HTMLElement>) => {
-                            children.props.onClick?.(e);
+                            triggerchildren.props.onClick?.(e);
                             trigger === "click" && toggleShowDropDawn();
                         },
                     })}
@@ -91,7 +90,7 @@ export const DropDawn = ({
                         ...style,
                     }}
                 >
-                    {dropdawnchildren}
+                    {children}
                 </Card>
             </InteractiveSurface>
         </>
