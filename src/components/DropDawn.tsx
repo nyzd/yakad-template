@@ -1,18 +1,17 @@
 "use client";
 
-import { Card, CardProps } from "@yakad/ui";
-import React, { useRef, useState, useEffect } from "react";
-import { InteractiveSurface } from "./InteractiveSurface";
+import { useRef, useState, useEffect, cloneElement } from "react";
+import { Card, CardProps, InteractiveSurface } from "@yakad/ui";
 
 export interface DropDawnProps extends CardProps {
-    trigger?: "click" | "rightClick";
+    trigger?: "onClick" | "onRightClick";
     triggerchildren?: React.ReactElement<{
         onClick?: (e: React.MouseEvent<HTMLElement>) => void;
     }>;
 }
 
 export const DropDawn = ({
-    trigger = "click",
+    trigger = "onClick",
     triggerchildren,
     style,
     children,
@@ -62,16 +61,21 @@ export const DropDawn = ({
             <InteractiveSurface
                 ref={toggleElementRef}
                 onRightClick={() =>
-                    trigger === "rightClick" && setShowDropDawn(true)
+                    trigger === "onRightClick" && setShowDropDawn(true)
                 }
             >
-                {triggerchildren &&
-                    React.cloneElement(triggerchildren, {
+                {triggerchildren ? (
+                    cloneElement(triggerchildren, {
                         onClick: (e: React.MouseEvent<HTMLElement>) => {
                             triggerchildren.props.onClick?.(e);
-                            trigger === "click" && toggleShowDropDawn();
+                            trigger === "onClick" && toggleShowDropDawn();
                         },
-                    })}
+                    })
+                ) : (
+                    <button onClick={toggleShowDropDawn}>
+                        Add DropDawn Trigger Children
+                    </button>
+                )}
             </InteractiveSurface>
             <InteractiveSurface onOutsideClick={() => setShowDropDawn(false)}>
                 <Card

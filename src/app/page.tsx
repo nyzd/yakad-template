@@ -9,7 +9,6 @@ export default function Page() {
                 <H1>Hi From Page</H1>
                 <Link href="/settings">Go to Settings</Link>
                 <DropDawn
-                    trigger="click"
                     triggerchildren={<Button variant="filled">Select</Button>}
                 >
                     <Button>TTTT</Button>
@@ -19,6 +18,7 @@ export default function Page() {
                     <Button>Test</Button>
                     <Button>Test</Button>
                 </DropDawn>
+                <DropDawn />
             </Main>
         </Screen>
     );
