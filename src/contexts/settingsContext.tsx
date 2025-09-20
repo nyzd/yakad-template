@@ -1,5 +1,3 @@
-"use client";
-
 import { createLocalStorageContext } from "@yakad/lib";
 
 interface Settings {
