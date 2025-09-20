@@ -35,7 +35,7 @@ const colorVars = [
 export default function Page() {
     return (
         <Screen>
-            <Main align="center">
+            <Main align="space">
                 <Row>
                     zzz
                     <WithDropdawn dropdawnChildren={<Dropdawn />}>
