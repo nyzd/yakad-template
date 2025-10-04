@@ -17,15 +17,15 @@
         "@yakad/x": "1.1.29",
         "classnames": "^2.5.1",
         "next": "15.5.2",
-        "react": "19.1.0",
-        "react-dom": "19.1.0"
+        "react": "^19.2",
+        "react-dom": "^19.2"
     },
     "devDependencies": {
         "@yakad/sync": "1.0.6",
         "@eslint/eslintrc": "^3",
         "@types/node": "^20",
-        "@types/react": "^19",
-        "@types/react-dom": "^19",
+        "@types/react": "^19.2",
+        "@types/react-dom": "^19.2",
         "eslint": "^9",
         "eslint-config-next": "15.1.4",
         "typescript": "^5"
