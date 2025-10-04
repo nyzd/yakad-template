@@ -1,49 +1,5 @@
 import Link from "next/link";
-import {
-    Button,
-    Card,
-    Container,
-    H1,
-    H2,
-    H3,
-    Main,
-    Row,
-    Screen,
-    Spacer,
-    Text,
-    WithDropdawn,
-} from "@yakad/ui";
-
-const colorVars = [
-    "--primaryColor",
-    "--primaryContainerColor",
-    "--secondaryColor",
-    "--secondaryContainerColor",
-    "--tertiaryColor",
-    "--errorColor",
-    "--errorContainerColor",
-    "--onPrimaryColor",
-    "--onPrimaryContainerColor",
-    "--onSecondaryColor",
-    "--onSecondaryContainerColor",
-    "--onTertiaryColor",
-    "--onErrorColor",
-    "--onErrorContainerColor",
-    "--surfaceColor",
-    "--surfaceVariantColor",
-    "--surfaceDimColor",
-    "--surfaceBrightColor",
-    "--surfaceContainerLowestColor",
-    "--surfaceContainerLowColor",
-    "--surfaceContainerColor",
-    "--surfaceContainerHightColor",
-    "--surfaceContainerHighestColor",
-    "--onSurfaceColor",
-    "--onSurfaceRGBColor",
-    "--onSurfaceVariantColor",
-    "--outlineColor",
-    "--outlineVariantColor",
-];
+import { Button, Main, Screen, Text } from "@yakad/ui";
 
 export default function Page() {
     return (
