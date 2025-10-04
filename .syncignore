@@ -1,4 +1,5 @@
 .syncignore
+LICENSE
 README.md
 metadata.json
 package.json
