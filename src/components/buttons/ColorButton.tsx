@@ -1,6 +1,5 @@
 "use client";
 
-import { forwardRef } from "react";
 import classNames from "classnames";
 import { Button, ButtonProps, ThemeColor } from "@yakad/ui";
 import { Symbol } from "@yakad/symbols";
@@ -31,42 +30,43 @@ const optionsMap: Record<ThemeColor, { name: string; title: string }> = {
     },
 };
 
-export const ColorButton = forwardRef<HTMLButtonElement, ButtonProps>(
-    function ColorButton(
-        { title, icon, onClick, children, className, ...restProps },
-        ref
-    ) {
-        const [preferences, setPreferences] = usePreferences();
+export function ColorButton({
+    title,
+    icon,
+    onClick,
+    children,
+    className,
+    ...restProps
+}: ButtonProps) {
+    const [preferences, setPreferences] = usePreferences();
 
-        const currentOption: ThemeColor = preferences.themeColor || "green";
+    const currentOption: ThemeColor = preferences.themeColor || "green";
 
-        const toggleOption = () => {
-            const currentIndex = order.indexOf(currentOption);
-            const nextIndex = (currentIndex + 1) % order.length;
-            const nextOption = order[nextIndex];
+    const toggleOption = () => {
+        const currentIndex = order.indexOf(currentOption);
+        const nextIndex = (currentIndex + 1) % order.length;
+        const nextOption = order[nextIndex];
 
-            setPreferences((prev) => ({
-                ...prev,
-                themeColor: nextOption,
-            }));
-        };
+        setPreferences((prev) => ({
+            ...prev,
+            themeColor: nextOption,
+        }));
+    };
 
-        const joinedClassNames = classNames("fullWidthLover", className);
+    const joinedClassNames = classNames("fullWidthLover", className);
 
-        return (
-            <Button
-                ref={ref}
-                className={joinedClassNames}
-                title={title || optionsMap[currentOption].title}
-                icon={icon || <Symbol icon="circle" />}
-                onClick={(e) => {
-                    toggleOption();
-                    onClick?.(e);
-                }}
-                {...restProps}
-            >
-                {children || optionsMap[currentOption].name}
-            </Button>
-        );
-    }
-);
+    return (
+        <Button
+            className={joinedClassNames}
+            title={title || optionsMap[currentOption].title}
+            icon={icon || <Symbol icon="circle" />}
+            onClick={(e) => {
+                toggleOption();
+                onClick?.(e);
+            }}
+            {...restProps}
+        >
+            {children || optionsMap[currentOption].name}
+        </Button>
+    );
+}

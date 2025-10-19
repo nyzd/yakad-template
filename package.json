@@ -12,9 +12,9 @@
     },
     "dependencies": {
         "@yakad/lib": "1.0.22",
-        "@yakad/symbols": "1.0.25",
-        "@yakad/ui": "1.3.146",
-        "@yakad/x": "1.1.29",
+        "@yakad/symbols": "1.0.29",
+        "@yakad/ui": "1.3.162",
+        "@yakad/x": "1.1.31",
         "classnames": "^2.5.1",
         "next": "15.5.2",
         "react": "^19.2",
